@@ -1,6 +1,7 @@
 ﻿using Aplicacion.Feautres.Libros.Comandos.CrearLibro;
 using Aplicacion.Feautres.Libros.Comandos.EliminarLibro;
 using Aplicacion.Feautres.Libros.Comandos.ModificarLibro;
+using Aplicacion.Feautres.Libros.Consultas.ObtenerTodosLibros;
 using Aplicacion.Feautres.Libros.Consultas.OptenerLibroPorId;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,19 @@ namespace ApiWeb.Controllers.v1
         public async Task<IActionResult> Get(int id)
         {
             return Ok(await Mediator.Send(new OptenerLibroId { Id = id }));
+        }
+        //Get All
+        [HttpGet()]
+        public async Task<IActionResult> Get([FromQuery] ObtenerTodosLibrosParametros filter)
+        {
+            return Ok(await Mediator.Send(new ObtenerTodosLibrosParametros
+            { 
+            NumeroPagina= filter.NumeroPagina,
+            TamanioPagina= filter.TamanioPagina,
+            TituloLibro= filter.TituloLibro,    
+            
+            
+            }));
         }
     }
 }
